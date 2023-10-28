@@ -59,7 +59,7 @@ public class StudentRestController {
     }
 
     // Add mapping for DELETE "/student/{studentId}" - to delete student
-    @DeleteMapping("/student/{studentId}")
+    @DeleteMapping("/students/{studentId}")
     public String deleteStudent(@PathVariable int studentId) {
         Student student = studentService.findById(studentId);
 

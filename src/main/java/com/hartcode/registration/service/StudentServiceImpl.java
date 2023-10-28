@@ -4,9 +4,11 @@ import com.hartcode.registration.dao.StudentDAO;
 import com.hartcode.registration.entity.Student;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class StudentServiceImpl implements StudentService {
     private StudentDAO studentDAO;
 
