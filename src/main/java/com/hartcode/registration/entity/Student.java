@@ -1,6 +1,9 @@
 package com.hartcode.registration.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="student")
@@ -13,21 +16,31 @@ public class Student {
     private int studentId;
 
     @Column(name="first_name")
+    @NotEmpty(message="Please enter your first name")
+    @Size(min=2,max=10)
     private String firstName;
 
     @Column(name="last_name")
+    @NotEmpty(message="Please enter your last name")
+    @Size(min=2,max=10)
     private String lastName;
 
     @Column(name="sex")
+    @NotEmpty(message="Please select your sex")
     private String sex;
 
     @Column(name="major")
+    @NotEmpty(message="Please select your major")
     private String major;
 
     @Column(name="email")
+    @NotEmpty(message="Please enter your email")
+    @Email
     private String email;
 
     @Column(name="phone_number")
+    @NotEmpty(message="Please enter your phone number")
+    @Size(min=8,max=14)
     private String phoneNumber;
 
     // Define constructors

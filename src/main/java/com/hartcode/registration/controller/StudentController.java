@@ -2,9 +2,11 @@ package com.hartcode.registration.controller;
 
 import com.hartcode.registration.entity.Student;
 import com.hartcode.registration.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
@@ -48,7 +50,12 @@ public class StudentController {
     }
 
     @PostMapping("/save")
-    public String saveForm(@ModelAttribute("student") Student Student) {
+    public String saveForm(@ModelAttribute("student") @Valid Student Student, BindingResult result) {
+
+        // Check if the student entry is valid - if not return the student form
+        if(result.hasErrors()) {
+            return "students/student-form";
+        }
 
         // Save the Student
         studentService.save(Student);
