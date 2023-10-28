@@ -1,4 +1,4 @@
-package com.hartcode.registration.rest;
+package com.hartcode.registration.controller;
 
 import com.hartcode.registration.entity.Student;
 import com.hartcode.registration.service.StudentService;
@@ -35,7 +35,6 @@ public class StudentRestController {
         return student;
     }
 
-
     // Add mapping for POST "/students" to add new student
     @PostMapping("/students")
     public Student addStudent(@RequestBody Student student) {
@@ -64,15 +63,11 @@ public class StudentRestController {
         Student student = studentService.findById(studentId);
 
         // Check the ID is associated to a student before deleting
-        if(student==null) {
+        if (student == null) {
             throw new RuntimeException("Student ID not found - " + studentId);
         }
 
         studentService.deleteById(studentId);
         return "Student " + studentId + " was deleted successfully";
     }
-
-
-
-
 }

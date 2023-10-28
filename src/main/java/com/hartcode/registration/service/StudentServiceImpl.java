@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -24,7 +25,16 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student findById(int id) {
-        return this.studentDAO.findById(id);
+        Optional<Student> result = Optional.ofNullable(studentDAO.findById(id));
+        Student student = null;
+
+        if(result.isPresent()) {
+            student=result.get();
+        } else {
+            // Could not find employee
+            throw new RuntimeException("Did not fnd employee by ID - " + id);
+        }
+        return student;
     }
 
     @Transactional
