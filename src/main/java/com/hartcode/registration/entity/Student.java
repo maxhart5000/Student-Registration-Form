@@ -7,7 +7,6 @@ import jakarta.persistence.*;
 public class Student {
 
     // Define fields
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
@@ -19,6 +18,12 @@ public class Student {
     @Column(name="last_name")
     private String lastName;
 
+    @Column(name="sex")
+    private String sex;
+
+    @Column(name="major")
+    private String major;
+
     @Column(name="email")
     private String email;
 
@@ -28,9 +33,11 @@ public class Student {
     // Define constructors
     public Student(){}
 
-    public Student (String firstName, String lastName, String email, String phoneNumber) {
+    public Student (String firstName, String lastName, String sex, String major, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.sex=sex;
+        this.major=major;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -60,6 +67,22 @@ public class Student {
         this.lastName = lastName;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -77,12 +100,16 @@ public class Student {
     }
 
     // Define a toString method
+
+
     @Override
     public String toString() {
         return "Student{" +
                 "studentId=" + studentId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", sex='" + sex + '\'' +
+                ", major='" + major + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';

@@ -24,6 +24,8 @@
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Sex</th>
+                <th>Major</th>
                 <th>Email</th>
                 <th>Phone Number</th>
                 <th>Action</th>
@@ -34,6 +36,8 @@
             <tr th:each="tempStudent : ${students}">
                 <td th:text="${tempStudent.firstName}"></td>
                 <td th:text="${tempStudent.lastName}"></td>
+                <td th:text="${tempStudent.sex}"></td>
+                <td th:text="${tempStudent.major}"></td>
                 <td th:text="${tempStudent.email}"></td>
                 <td th:text="${tempStudent.phoneNumber}"></td>
                 <td>
