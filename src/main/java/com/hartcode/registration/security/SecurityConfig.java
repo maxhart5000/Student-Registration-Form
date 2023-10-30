@@ -4,35 +4,43 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class SecurityConfig {
 
+    // Add support for JDBC
     @Bean
-    public InMemoryUserDetailsManager userDetailsManager() {
+    public UserDetailsManager userDetailsManager(DataSource dataSource) {
 
-        UserDetails teacher = User.builder()
-                .username("teacher")
-                .password("{noop}teacher123")
-                .roles("TEACHER")
-                .build();
-        UserDetails student = User.builder()
-                .username("student")
-                .password("{noop}student123")
-                .roles("STUDENT")
-                .build();
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password("{noop}admin123")
-                .roles("ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(teacher, student, admin);
+        return new JdbcUserDetailsManager(dataSource);
     }
+
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailsManager() {
+//
+//        UserDetails teacher = User.builder()
+//                .username("teacher")
+//                .password("{noop}teacher123")
+//                .roles("TEACHER")
+//                .build();
+//        UserDetails student = User.builder()
+//                .username("student")
+//                .password("{noop}student123")
+//                .roles("STUDENT")
+//                .build();
+//        UserDetails admin = User.builder()
+//                .username("admin")
+//                .password("{noop}admin123")
+//                .roles("ADMIN")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(teacher, student, admin);
+//    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
