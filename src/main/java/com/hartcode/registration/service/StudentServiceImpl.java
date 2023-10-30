@@ -1,6 +1,6 @@
 package com.hartcode.registration.service;
 
-import com.hartcode.registration.dao.StudentDAO;
+import com.hartcode.registration.dao.StudentRepository;
 import com.hartcode.registration.entity.Student;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,21 +11,21 @@ import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    private StudentDAO studentDAO;
+    private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentServiceImpl(StudentDAO studentDAO) {
-        this.studentDAO = studentDAO;
+    public StudentServiceImpl(StudentRepository StudentRepository) {
+        this.studentRepository = StudentRepository;
     }
 
     @Override
     public List<Student> findAll() {
-       return this.studentDAO.findAll();
+       return this.studentRepository.findAll();
     }
 
     @Override
     public Student findById(int id) {
-        Optional<Student> result = Optional.ofNullable(studentDAO.findById(id));
+        Optional<Student> result = studentRepository.findById(id);
         Student student = null;
 
         if(result.isPresent()) {
@@ -40,12 +40,12 @@ public class StudentServiceImpl implements StudentService {
     @Transactional
     @Override
     public Student save(Student student) {
-        return this.studentDAO.save(student);
+        return this.studentRepository.save(student);
     }
 
     @Transactional
     @Override
     public void deleteById(int id) {
-        this.studentDAO.deleteById(id);
+        this.studentRepository.deleteById(id);
     }
 }
