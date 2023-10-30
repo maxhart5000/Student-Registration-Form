@@ -13,7 +13,6 @@ import java.util.Comparator;
 import java.util.List;
 
 @Controller
-@RequestMapping("/students")
 public class StudentController {
 
     private final StudentService studentService;
@@ -23,8 +22,18 @@ public class StudentController {
         this.studentService=StudentService;
     }
 
-    @GetMapping("/list")
-    public String StudentList(Model theModel) {
+    @GetMapping("/")
+    public String redirect() {
+        return "redirect:/home";
+    }
+
+    @GetMapping("/home")
+    public String homePage() {
+        return "home-page";
+    }
+
+    @GetMapping("/home/directory")
+    public String studentDirectory(Model theModel) {
 
         // Get the Students from db
         List<Student> theStudents = studentService.findAll();
@@ -35,10 +44,10 @@ public class StudentController {
         // Add to the spring model
         theModel.addAttribute("students", theStudents);
 
-        return "/students/list-students";
+        return "student-directory";
     }
 
-    @GetMapping("/showFormForAdd")
+    @GetMapping("/home/showFormForAdd")
     public String showFormForAdd(Model theModel) {
 
         // Create model attribute to bind form data
@@ -46,25 +55,25 @@ public class StudentController {
 
         theModel.addAttribute("student", Student);
 
-        return "students/student-form";
+        return "student-form";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/home/save")
     public String saveForm(@ModelAttribute("student") @Valid Student Student, BindingResult result) {
 
         // Check if the student entry is valid - if not return the student form
         if(result.hasErrors()) {
-            return "students/student-form";
+            return "student-form";
         }
 
         // Save the Student
         studentService.save(Student);
 
         // Use a redirect to prevent duplicate submissions
-        return "redirect:/students/list";
+        return "redirect:/student-directory";
     }
 
-    @GetMapping("/showFormForUpdate")
+    @GetMapping("/home/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("studentId")int theId, Model theModel) {
 
         // Get the Student from the service
@@ -74,17 +83,17 @@ public class StudentController {
         theModel.addAttribute("student", Student);
 
         // Send over to our form
-        return "students/student-form";
+        return "student-form";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/home/delete")
     public String delete(@RequestParam("studentId") int theId) {
 
         // Delete the Student by ID
         studentService.deleteById(theId);
 
         // Use a redirect to prevent duplicate deletions
-        return "redirect:/students/list";
+        return "redirect:/student-directory";
     }
 }
 

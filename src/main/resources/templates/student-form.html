@@ -18,7 +18,7 @@
      <hr>
      <p class="h4 mb-4">Enter your details</p>
 
-     <form action="#" th:action="@{/students/save}" th:object="${student}" method="POST" class="form">
+     <form action="#" th:action="@{/save}" th:object="${student}" method="POST" class="form">
          <input type="hidden" th:field="*{studentId}">
 
          <div class="form-group">
@@ -83,7 +83,7 @@
      </form>
 
      <hr>
-     <a th:href="@{/students/list}">Back to Student List</a>
+     <a th:href="@{/student-directory}">Back to Student Directory</a>
  </div>
 </body>
 </html>

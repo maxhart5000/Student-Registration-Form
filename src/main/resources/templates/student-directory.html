@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">>
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -15,8 +16,15 @@
 <div class="container">
     <h3>Student Directory</h3>
     <hr>
+    <p>
+        User: <span sec:authentication="principal.username"></span>
+        <br><br>
+        Role: <span sec:authentication="principal.authorities"></span>
+        <br><br>
+    </p>
+    <hr>
     <!-- Add a button-->
-    <a th:href="@{/students/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+    <a th:href="@{/home/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
         Add Student
     </a>
     <table class="table table-bordered table-striped">
@@ -42,12 +50,12 @@
                 <td th:text="${tempStudent.phoneNumber}"></td>
                 <td>
                     <!-- Add update button link -->
-                    <a th:href="@{/students/showFormForUpdate(studentId=${tempStudent.studentId})}"
+                    <a th:href="@{/home/showFormForUpdate(studentId=${tempStudent.studentId})}"
                        class="btn btn-info btn-sm col-md-5">
                         Update
                     </a>
                     <!-- Add delete button link -->
-                    <a th:href="@{/students/delete(studentId=${tempStudent.studentId})}"
+                    <a th:href="@{/home/delete(studentId=${tempStudent.studentId})}"
                        class="btn btn-danger btn-sm col-md-5"
                        onclick="if (!(confirm('Are you sure you want to delete this student?'))) return false">
                         Delete
@@ -56,6 +64,12 @@
             </tr>
         </tbody>
     </table>
+    <br>
+    <!-- Add logout button link -->
+    <a th:href="@{/home}"
+       class="btn btn-info btn-sm col-md-2">
+        Log out
+    </a>
 </div>
 </body>
 </html>
