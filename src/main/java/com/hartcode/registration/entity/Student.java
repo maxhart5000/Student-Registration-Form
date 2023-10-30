@@ -1,9 +1,7 @@
 package com.hartcode.registration.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name="student")
@@ -38,10 +36,14 @@ public class Student {
     @Email
     private String email;
 
-    @Column(name="phone_number")
-    @NotEmpty(message="Please enter your phone number")
-    @Size(min=8,max=14)
+    @Column(name = "phone_number")
+    @NotEmpty(message = "Please enter your phone number")
+    @Pattern(
+            regexp = "^(\\+[0-9]{1,3}[-.\\s])?\\(?[0-9]{3}\\)?[-.\\s]?[0-9]{3}[-.\\s]?[0-9]{4}$",
+            message = "Invalid international phone number format"
+    )
     private String phoneNumber;
+
 
     // Define constructors
     public Student(){}

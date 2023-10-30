@@ -3,10 +3,10 @@ package com.hartcode.registration.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -47,7 +47,8 @@ public class SecurityConfig {
 
             http
             .authorizeHttpRequests(config -> config
-                    .requestMatchers("/home").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                    .requestMatchers("/").permitAll()
+                    .requestMatchers("/home").permitAll()
                     .requestMatchers("/home/directory").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                     .requestMatchers("/home/showFormForAdd").hasAnyRole ("TEACHER", "ADMIN")
                     .requestMatchers("/home/showFormForUpdate").hasAnyRole("TEACHER", "ADMIN")
@@ -59,7 +60,12 @@ public class SecurityConfig {
                     .loginProcessingUrl("/authenticateTheUser")
                     .defaultSuccessUrl("/home/directory")
                     .permitAll())
-            .logout(LogoutConfigurer::permitAll)
+            .logout(logout -> logout
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .permitAll()
+                    .logoutSuccessUrl("/home")
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true))
             .exceptionHandling(config -> config
                     .accessDeniedPage("/home/access-denied"));
 

@@ -70,7 +70,7 @@ public class StudentController {
         studentService.save(Student);
 
         // Use a redirect to prevent duplicate submissions
-        return "redirect:/student-directory";
+        return "redirect:/home/directory";
     }
 
     @GetMapping("/home/showFormForUpdate")
@@ -93,7 +93,7 @@ public class StudentController {
         studentService.deleteById(theId);
 
         // Use a redirect to prevent duplicate deletions
-        return "redirect:/student-directory";
+        return "redirect:/home/directory";
     }
 }
 

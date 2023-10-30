@@ -22,34 +22,34 @@
     <hr>
     <p class="h4 mb-4">Enter your details</p>
 
-    <form action="#" class="form" method="POST" th:action="@{/save}" th:object="${student}">
+    <form action="#" class="form" method="POST" th:action="@{/home/save}" th:object="${student}">
         <input th:field="*{studentId}" type="hidden">
 
         <div class="form-group">
             <label for="firstName">First Name</label>
             <input class="form-control mb-4 w-25" id="firstName" placeholder="First Name" th:field="*{firstName}"
                    type="text">
-            <div class="alert alert-warning" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></div>
+            <div style="width:325px" class="alert alert-warning" th:errors="*{firstName}" th:if="${#fields.hasErrors('firstName')}"></div>
         </div>
 
         <div class="form-group">
             <label for="lastName">Last Name</label>
             <input class="form-control mb-4 w-25" id="lastName" placeholder="Last Name" th:field="*{lastName}"
                    type="text">
-            <div class="alert alert-warning" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></div>
+            <div style="width:325px" class="alert alert-warning" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></div>
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
             <input class="form-control mb-4 w-25" id="email" placeholder="Email" th:field="*{email}" type="text">
-            <div class="alert alert-warning" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></div>
+            <div style="width:325px" class="alert alert-warning" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></div>
         </div>
 
         <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
             <input class="form-control mb-4 w-25" id="phoneNumber" placeholder="Last Name" th:field="*{phoneNumber}"
                    type="text">
-            <div class="alert alert-warning" th:errors="*{phoneNumber}"
+            <div style="width:325px" class="alert alert-warning" th:errors="*{phoneNumber}"
                  th:if="${#fields.hasErrors('phoneNumber')}"></div>
         </div>
 
@@ -63,7 +63,7 @@
                 <option value="English">English</option>
                 <option value="Computer Science">Computer Science</option>
             </select>
-            <div class="alert alert-warning" th:errors="*{major}" th:if="${#fields.hasErrors('major')}"></div>
+            <div style="width:325px" class="alert alert-warning" th:errors="*{major}" th:if="${#fields.hasErrors('major')}"></div>
         </div>
 
         <br>
@@ -82,16 +82,14 @@
                 <input class="form-check-input" id="inlineRadio3" name="sex" type="radio" value="Non-Binary">
                 <label class="form-check-label" for="inlineRadio3">Non-Binary</label>
             </div>
-            <div class="alert alert-warning" th:errors="*{sex}" th:if="${#fields.hasErrors('sex')}"></div>
+            <div style="width:325px" class="alert alert-warning" th:errors="*{sex}" th:if="${#fields.hasErrors('sex')}"></div>
         </div>
-
         <br><br>
-
         <button class="btn btn-info col-2" type="submit">Save</button>
     </form>
 
     <hr>
-    <a th:href="@{/student-directory}">Back to Student Directory</a>
+    <a th:href="@{/home/directory}">Back to Student Directory</a>
 </div>
 </body>
 </html>
