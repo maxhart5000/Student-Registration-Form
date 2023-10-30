@@ -55,13 +55,13 @@ public class SecurityConfig {
                     .anyRequest()
                     .authenticated())
             .formLogin(form -> form
-                    .loginPage("/showLoginPage")
+                    .loginPage("/home/showLoginPage")
                     .loginProcessingUrl("/authenticateTheUser")
                     .defaultSuccessUrl("/home/directory")
                     .permitAll())
             .logout(LogoutConfigurer::permitAll)
             .exceptionHandling(config -> config
-                    .accessDeniedPage("/access-denied"));
+                    .accessDeniedPage("/home/access-denied"));
 
             return http.build();
     }
