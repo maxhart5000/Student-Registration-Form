@@ -31,6 +31,9 @@ public class WebUser {
     @Email
     private String email;
 
+    @NotNull(message="Please select your role")
+    private String role;
+
     // Getters and setters for the fields
 
     public String getUserName() {
@@ -73,6 +76,14 @@ public class WebUser {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     // Custom toString method for displaying the WebUser object
 
     @Override
@@ -83,6 +94,7 @@ public class WebUser {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

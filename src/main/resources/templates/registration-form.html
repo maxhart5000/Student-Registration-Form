@@ -74,6 +74,25 @@
                             <input class="form-control" id="email" placeholder="Email" th:field="*{email}" type="text">
                             <div class="alert alert-warning" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></div>
                         </div>
+
+                        <!-- Role Radio Buttons -->
+                        <div style="padding-top:20px" class="form-group col-6">
+                            <label for="role">Role</label>
+                            <br>
+                            <div class="form-check form-check-inline" id="role">
+                                <input class="form-check-input" id="inlineRadio1" name="role" type="radio" value="ROLE_STUDENT">
+                                <label class="form-check-label" for="inlineRadio1">Student</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="inlineRadio2" name="role" type="radio" value="ROLE_TEACHER">
+                                <label class="form-check-label" for="inlineRadio2">Teacher</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" id="inlineRadio3" name="role" type="radio" value="ROLE_ADMIN">
+                                <label class="form-check-label" for="inlineRadio3">Admin</label>
+                            </div>
+                            <div class="alert alert-warning" th:errors="*{role}" th:if="${#fields.hasErrors('role')}"></div>
+                        </div>
                         <br><br>
 
                         <!-- Back to Directory Button -->

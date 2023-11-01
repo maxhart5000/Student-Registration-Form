@@ -46,11 +46,11 @@ public class UserServiceImpl implements UserService {
 
         user.setUserName(webUser.getUserName());
         user.setPassword(bCryptPasswordEncoder.encode(webUser.getPassword()));
+        user.setEnabled(true);
         user.setFirstName(webUser.getFirstName());
         user.setLastname(webUser.getLastName());
         user.setEmail(webUser.getEmail());
-
-        user.setRoles(Collections.singletonList(roleDao.findRoleByName("ROLE_ADMIN")));
+        user.setRoles(Collections.singletonList(roleDao.findRoleByName(webUser.getRole())));
 
         userDao.save(user);
     }
