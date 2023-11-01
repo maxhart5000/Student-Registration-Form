@@ -22,6 +22,15 @@ public class User {
     @Column(name = "enabled")
     private boolean enabled;
 
+    @Column(name= "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastname;
+
+    @Column(name = "email")
+    private String email;
+
     // Define a many-to-many relationship with Role entities.
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
@@ -82,6 +91,30 @@ public class User {
         this.enabled = enabled;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -97,6 +130,9 @@ public class User {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
+                ", firstName='" + firstName + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
                 ", roles=" + roles +
                 '}';
     }

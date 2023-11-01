@@ -49,7 +49,7 @@
             <td th:text="${tempStudent.phoneNumber}"></td>
             <td>
                 <!-- Add update button link -->
-                <a class="btn btn-info btn-sm col-md-5"
+                <a class="btn btn-success btn-sm col-md-5"
                    th:href="@{/home/showFormForUpdate(studentId=${tempStudent.studentId})}">
                     Update
                 </a>
@@ -66,7 +66,7 @@
     <br>
     <!-- Add logout button link -->
     <form method="POST" th:action="@{/logout}">
-        <input class="btn btn-success btn-sm col-md-2" type="submit" value="Log out"/>
+        <input class="btn btn-info btn-sm col-md-2" type="submit" value="Log out"/>
     </form>
 </div>
 </body>

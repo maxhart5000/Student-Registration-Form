@@ -8,4 +8,7 @@ public interface UserDao {
     // Find a user by their username.
     // Returns the User entity that matches the specified username, or null if not found.
     public User findByUserName(String userName);
+
+    // Saves the User entity
+    public void save(User user);
 }

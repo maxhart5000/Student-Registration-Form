@@ -2,16 +2,19 @@ package com.hartcode.registration.service;
 
 import com.hartcode.registration.dao.RoleDao;
 import com.hartcode.registration.dao.UserDao;
-import com.hartcode.registration.entity.User;
 import com.hartcode.registration.entity.Role;
+import com.hartcode.registration.entity.User;
+import com.hartcode.registration.user.WebUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 // This is the implementation of the UserService interface and UserDetailsService from Spring Security.
@@ -21,16 +24,35 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao;
     private final RoleDao roleDao;
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Autowired
-    public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
+    public UserServiceImpl(UserDao userDao, RoleDao roleDao, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDao = userDao;
         this.roleDao = roleDao;
+        this.bCryptPasswordEncoder=bCryptPasswordEncoder;
     }
 
     @Override
     public User findByUserName(String userName) {
         // Check the database if the user already exists and retrieve user information by username.
         return userDao.findByUserName(userName);
+    }
+
+    @Override
+    public void save(WebUser webUser) {
+
+        User user = new User();
+
+        user.setUserName(webUser.getUserName());
+        user.setPassword(bCryptPasswordEncoder.encode(webUser.getPassword()));
+        user.setFirstName(webUser.getFirstName());
+        user.setLastname(webUser.getLastName());
+        user.setEmail(webUser.getEmail());
+
+        user.setRoles(Collections.singletonList(roleDao.findRoleByName("ROLE_ADMIN")));
+
+        userDao.save(user);
     }
 
     @Override

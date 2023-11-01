@@ -14,12 +14,12 @@ import java.util.Comparator;
 import java.util.List;
 
 @Controller
-public class StudentController {
+public class MainController {
 
     private final StudentService studentService;
 
     @Autowired
-    public StudentController(StudentService studentService) {
+    public MainController(StudentService studentService) {
         this.studentService = studentService;
     }
 

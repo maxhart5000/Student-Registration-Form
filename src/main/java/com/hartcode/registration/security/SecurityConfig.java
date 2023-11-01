@@ -7,6 +7,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 // Define the configuration for Spring Security
@@ -35,11 +36,13 @@ public class SecurityConfig {
 
     // Define the security filter chain that configures HTTP security rules
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationSuccessHandler authenticationSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(config -> config
                         .requestMatchers("/").permitAll()  // Allow public access to the root path
                         .requestMatchers("/home").permitAll()  // Allow public access to the /home path
+                        .requestMatchers("/home/showRegistrationForm").permitAll()
+                        .requestMatchers("/home/processRegistrationForm").permitAll()
                         .requestMatchers("/home/directory").hasAnyRole("STUDENT", "TEACHER", "ADMIN") // Requires roles for /home/directory
                         .requestMatchers("/home/showFormForAdd").hasAnyRole("TEACHER", "ADMIN")  // Requires roles for /home/showFormForAdd
                         .requestMatchers("/home/showFormForUpdate").hasAnyRole("TEACHER", "ADMIN")  // Requires roles for /home/showFormForUpdate
@@ -51,6 +54,7 @@ public class SecurityConfig {
                         .loginPage("/home/showLoginPage")  // Specify the custom login page
                         .loginProcessingUrl("/authenticateTheUser")  // URL for processing login
                         .defaultSuccessUrl("/home/directory")  // Default success URL after login
+                        .successHandler(authenticationSuccessHandler) // Custom success handler
                         .permitAll())  // Allow public access to the login form
 
                 .logout(logout -> logout
