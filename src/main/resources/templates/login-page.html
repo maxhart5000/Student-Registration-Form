@@ -12,16 +12,16 @@
     <title>Login Page</title>
 
 </head>
-<body>
+<body style="background-color:#CBF1F5">
 <div class="container">
-    <div id="loginbox" style="margin-top: 40px; margin-left: -260px;"
+    <div id="loginbox" style="margin-top:80px;"
          class="col-md-4 col-md-offset-1 col-sm-6 col-sm-offset-2">
         <div class="card border-info">
-            <div class="card-header headerColor">
+            <div style="background-color:#71C9CE" class="card-header">
                 Sign In
             </div>
 
-            <div class="card-body bodyColor">
+            <div style="background-color:#A6E3E9" class="card-body">
                 <div class="card-text">
 
                     <!-- Login Form -->
@@ -62,17 +62,17 @@
                             <div class="row">
                                 <!-- Login/Submit Button -->
                                 <div class="col-md-3 controls">
-                                    <button type="submit" class="buttonColor btn btn-success">Login</button>
+                                    <button type="submit" class="btn btn-success">Login</button>
                                 </div>
                                 <!-- Registration Button -->
                                 <div class="col-md-3 controls">
-                                    <a class="buttonColor btn btn-info" th:href="@{/home}">
+                                    <a class="btn btn-info" th:href="@{/home}">
                                         Register
                                     </a>
                                 </div>
                                 <!-- Back to Home Button -->
                                 <div class="col-md-6 controls">
-                                    <a class="buttonColor btn btn-info" th:href="@{/home}">
+                                    <a class="btn btn-danger" th:href="@{/home}">
                                         Back to Home
                                     </a>
                                 </div>

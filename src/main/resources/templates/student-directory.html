@@ -13,7 +13,7 @@
     <title>Student Directory</title>
 
 </head>
-<body>
+<body style="background-color:#CBF1F5">
 <div class="container">
     <h3>Student Directory</h3>
     <hr>
@@ -28,7 +28,7 @@
     <a class="btn btn-primary btn-sm mb-3" th:href="@{/home/showFormForAdd}">
         Add Student
     </a>
-    <table class="table table-bordered table-striped">
+    <table  class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>
             <th>First Name</th>
@@ -68,7 +68,7 @@
     <br>
     <!-- Add logout button link -->
     <form method="POST" th:action="@{/logout}">
-        <input class="btn btn-info btn-sm col-md-2" type="submit" value="Log out"/>
+        <input class="btn btn-success btn-sm col-md-2" type="submit" value="Log out"/>
     </form>
 </div>
 </body>
