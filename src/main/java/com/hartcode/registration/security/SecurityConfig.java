@@ -1,8 +1,11 @@
 package com.hartcode.registration.security;
 
+import com.hartcode.registration.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -18,6 +21,26 @@ public class SecurityConfig {
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
 
         return new JdbcUserDetailsManager(dataSource);
+    }
+
+    // Bcrypt bean definition
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // AuthenticationProvider bean definition
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(UserService userService) {
+        DaoAuthenticationProvider authenticationProvider =new DaoAuthenticationProvider();
+
+        // Set the custom user details service
+        authenticationProvider.setUserDetailsService(userService);
+
+        // Set the password encoder - bcrypt
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+
+        return authenticationProvider;
     }
 
 //    @Bean

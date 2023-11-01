@@ -7,8 +7,8 @@ import java.util.List;
 // service interface - default methods to be implemented in StudentServiceImpl
 // Creates a bridge between sql db (in this case DAO) and Controller. Eliminates direct access between the two.
 public interface StudentService {
-    List<Student> findAll();
-    Student findById(int id);
-    Student save(Student student);
-    void deleteById(int id);
+    public List<Student> findAll();
+    public Student findById(int id);
+    public Student save(Student student);
+    public void deleteById(int id);
 }
