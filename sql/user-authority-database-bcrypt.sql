@@ -19,14 +19,14 @@ CREATE TABLE `users` (
 --
 -- NOTE: The passwords are encrypted using BCrypt
 --
--- Default passwords here are: student123, teacher123 and admin123 respectively
+-- Default passwords here are: BruceAndLarry123
 --
 
 INSERT INTO `users` 
 VALUES 
-('student','{bcrypt}$2y$10$b6nkt065GjX5dYH32D3HN.SITtnnGMIygfKInLunOZZNfvS.78jVS',1),
-('teacher','{bcrypt}$2y$10$QUd56Uux6kLozZj3anQRtOT8gL.pqjsadu0GtoI.D0e4i6weKKjUm',1),
-('admin','{bcrypt}$2y$10$foT.I8Q345hPSVfG1lk2teDsgtoYwzO4DcrBO4tMX652h.l.ODbFq',1);
+('student','{bcrypt}$2a$12$kZz9oqyENUwFdPJaEekxleqVulWY5m.Lf4YBVHju78gfx8qJ9jM7K',1),
+('teacher','{bcrypt}$2a$12$kZz9oqyENUwFdPJaEekxleqVulWY5m.Lf4YBVHju78gfx8qJ9jM7K',1),
+('admin','{bcrypt}$2a$12$kZz9oqyENUwFdPJaEekxleqVulWY5m.Lf4YBVHju78gfx8qJ9jM7K',1);
 
 
 --

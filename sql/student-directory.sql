@@ -23,6 +23,6 @@ CREATE TABLE `student` (
 --
 
 INSERT INTO `student` VALUES 
-	(1,'John','Snow','Male','Mathematics','johnsnow@gmail.com', '+4475038275'),
-	(2,'Cersei','Lannister','Female','Physics','cerseilannister@icloud.com','+6115029651'),
-	(3,'Rob','Stark','Male','History','robstark@yahoo.com','+8899575697')
+	(1,'John','Snow','Male','Mathematics','johnsnow@gmail.com', '+44 7503827523'),
+	(2,'Cersei','Lannister','Female','Physics','cerseilannister@icloud.com','+61 1502965142'),
+	(3,'Rob','Stark','Male','History','robstark@yahoo.com','+88 9957569752')
