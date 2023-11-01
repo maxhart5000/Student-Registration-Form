@@ -17,7 +17,7 @@ import java.io.IOException;
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     // Inject the UserService
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public CustomAuthenticationSuccessHandler(UserService userService) {

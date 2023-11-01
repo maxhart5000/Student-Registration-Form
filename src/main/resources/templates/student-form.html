@@ -31,7 +31,7 @@
 
         <!-- Last Name Input -->
         <div style="padding-top:20px" class="form-group col-6">
-            <label for "lastName">Last Name</label>
+            <label for="lastName">Last Name</label>
             <input class="form-control" id="lastName" placeholder="Last Name" th:field="*{lastName}" type="text">
             <div class="alert alert-warning" th:errors="*{lastName}" th:if="${#fields.hasErrors('lastName')}"></div>
         </div>

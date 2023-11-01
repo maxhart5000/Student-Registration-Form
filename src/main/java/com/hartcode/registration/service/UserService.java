@@ -7,9 +7,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 // This is a service interface for managing User entities, and it extends UserDetailsService.
 public interface UserService extends UserDetailsService {
 
-    // Find a user by their username.
-    public User findByUserName(String userName);
+    // Find a user by their username
+    User findByUserName(String userName);
 
     // Save the user to the database
-    public void save(WebUser webUser);
+    void save(WebUser webUser);
 }
