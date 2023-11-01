@@ -3,36 +3,38 @@ package com.hartcode.registration.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+// This class represents the Student entity and is mapped to the "student" table in the database.
 @Entity
-@Table(name="student")
+@Table(name = "student")
 public class Student {
 
     // Define fields
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private int studentId;
 
-    @Column(name="first_name")
-    @NotEmpty(message="Please enter your first name")
-    @Size(min=2,max=10)
+    @Column(name = "first_name")
+    @NotEmpty(message = "Please enter your first name")
+    @Size(min = 2, max = 10)
     private String firstName;
 
-    @Column(name="last_name")
-    @NotEmpty(message="Please enter your last name")
-    @Size(min=2,max=10)
+    @Column(name = "last_name")
+    @NotEmpty(message = "Please enter your last name")
+    @Size(min = 2, max = 10)
     private String lastName;
 
-    @Column(name="sex")
-    @NotEmpty(message="Please select your sex")
+    @Column(name = "sex")
+    @NotEmpty(message = "Please select your sex")
     private String sex;
 
-    @Column(name="major")
-    @NotEmpty(message="Please select your major")
+    @Column(name = "major")
+    @NotEmpty(message = "Please select your major")
     private String major;
 
-    @Column(name="email")
-    @NotEmpty(message="Please enter your email")
+    @Column(name = "email")
+    @NotEmpty(message = "Please enter your email")
     @Email
     private String email;
 
@@ -44,20 +46,24 @@ public class Student {
     )
     private String phoneNumber;
 
-
     // Define constructors
-    public Student(){}
 
-    public Student (String firstName, String lastName, String sex, String major, String email, String phoneNumber) {
+    // Default no-argument constructor.
+    public Student() {
+    }
+
+    // Constructor that initializes a student with specified attributes.
+    public Student(String firstName, String lastName, String sex, String major, String email, String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.sex=sex;
-        this.major=major;
+        this.sex = sex;
+        this.major = major;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
     // Define getters and setters
+
     public int getStudentId() {
         return studentId;
     }
@@ -113,9 +119,6 @@ public class Student {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    // Define a toString method
-
 
     @Override
     public String toString() {

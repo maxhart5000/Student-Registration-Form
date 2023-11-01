@@ -2,6 +2,7 @@ package com.hartcode.registration.controller;
 
 import com.hartcode.registration.entity.Student;
 import com.hartcode.registration.service.StudentService;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,83 +19,81 @@ public class StudentController {
     private final StudentService studentService;
 
     @Autowired
-    public StudentController(StudentService StudentService){
-        this.studentService=StudentService;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
+    // Redirect to the home page
     @GetMapping("/")
     public String redirect() {
         return "redirect:/home";
     }
 
+    // Display the home page
     @GetMapping("/home")
     public String homePage() {
         return "home-page";
     }
 
+    // Display the student directory
     @GetMapping("/home/directory")
     public String studentDirectory(Model theModel) {
-
-        // Get the Students from db
+        // Get the students from the database
         List<Student> theStudents = studentService.findAll();
 
         // Order the list by last name
         theStudents.sort(Comparator.comparing(Student::getLastName));
 
-        // Add to the spring model
+        // Add students to the Spring model
         theModel.addAttribute("students", theStudents);
 
         return "student-directory";
     }
 
+    // Show the form for adding a new student
     @GetMapping("/home/showFormForAdd")
     public String showFormForAdd(Model theModel) {
-
-        // Create model attribute to bind form data
-        Student Student = new Student();
-
-        theModel.addAttribute("student", Student);
+        // Create a model attribute to bind form data
+        Student student = new Student();
+        theModel.addAttribute("student", student);
 
         return "student-form";
     }
 
+    // Save a student's information
     @PostMapping("/home/save")
-    public String saveForm(@ModelAttribute("student") @Valid Student Student, BindingResult result) {
-
-        // Check if the student entry is valid - if not return the student form
-        if(result.hasErrors()) {
+    public String saveForm(@ModelAttribute("student") @Valid Student student, BindingResult result) {
+        // Check if the student entry is valid; if not, return the student form
+        if (result.hasErrors()) {
             return "student-form";
         }
 
-        // Save the Student
-        studentService.save(Student);
+        // Save the student
+        studentService.save(student);
 
         // Use a redirect to prevent duplicate submissions
         return "redirect:/home/directory";
     }
 
+    // Show the form for updating a student's information
     @GetMapping("/home/showFormForUpdate")
-    public String showFormForUpdate(@RequestParam("studentId")int theId, Model theModel) {
+    public String showFormForUpdate(@RequestParam("studentId") int theId, Model theModel) {
+        // Get the student from the service
+        Student student = studentService.findById(theId);
 
-        // Get the Student from the service
-        Student Student = studentService.findById(theId);
+        // Set the student in the model to prepopulate the form
+        theModel.addAttribute("student", student);
 
-        // Set the Student in the model to prepopulate the form
-        theModel.addAttribute("student", Student);
-
-        // Send over to our form
         return "student-form";
     }
 
+    // Delete a student by ID
     @GetMapping("/home/delete")
     public String delete(@RequestParam("studentId") int theId) {
-
-        // Delete the Student by ID
+        // Delete the student by ID
         studentService.deleteById(theId);
 
         // Use a redirect to prevent duplicate deletions
         return "redirect:/home/directory";
     }
 }
-
-

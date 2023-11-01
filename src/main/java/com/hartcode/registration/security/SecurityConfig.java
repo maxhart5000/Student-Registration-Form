@@ -6,33 +6,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import javax.sql.DataSource;
-
+// Define the configuration for Spring Security
 @Configuration
 public class SecurityConfig {
 
-    // Add support for JDBC
-    @Bean
-    public UserDetailsManager userDetailsManager(DataSource dataSource) {
-
-        return new JdbcUserDetailsManager(dataSource);
-    }
-
-    // Bcrypt bean definition
+    // Define a BCrypt password encoder as a Spring bean
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // AuthenticationProvider bean definition
+    // Define a DaoAuthenticationProvider as a Spring bean to handle authentication
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserService userService) {
-        DaoAuthenticationProvider authenticationProvider =new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
 
         // Set the custom user details service
         authenticationProvider.setUserDetailsService(userService);
@@ -43,55 +33,36 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 
-//    @Bean
-//    public InMemoryUserDetailsManager userDetailsManager() {
-//
-//        UserDetails teacher = User.builder()
-//                .username("teacher")
-//                .password("{noop}teacher123")
-//                .roles("TEACHER")
-//                .build();
-//        UserDetails student = User.builder()
-//                .username("student")
-//                .password("{noop}student123")
-//                .roles("STUDENT")
-//                .build();
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password("{noop}admin123")
-//                .roles("ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(teacher, student, admin);
-//    }
-
+    // Define the security filter chain that configures HTTP security rules
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(config -> config
+                        .requestMatchers("/").permitAll()  // Allow public access to the root path
+                        .requestMatchers("/home").permitAll()  // Allow public access to the /home path
+                        .requestMatchers("/home/directory").hasAnyRole("STUDENT", "TEACHER", "ADMIN") // Requires roles for /home/directory
+                        .requestMatchers("/home/showFormForAdd").hasAnyRole("TEACHER", "ADMIN")  // Requires roles for /home/showFormForAdd
+                        .requestMatchers("/home/showFormForUpdate").hasAnyRole("TEACHER", "ADMIN")  // Requires roles for /home/showFormForUpdate
+                        .requestMatchers("/home/delete").hasRole("ADMIN")  // Requires the ADMIN role for /home/delete
+                        .anyRequest()
+                        .authenticated())  // All other requests require authentication
 
-            http
-            .authorizeHttpRequests(config -> config
-                    .requestMatchers("/").permitAll()
-                    .requestMatchers("/home").permitAll()
-                    .requestMatchers("/home/directory").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
-                    .requestMatchers("/home/showFormForAdd").hasAnyRole ("TEACHER", "ADMIN")
-                    .requestMatchers("/home/showFormForUpdate").hasAnyRole("TEACHER", "ADMIN")
-                    .requestMatchers("/home/delete").hasRole("ADMIN")
-                    .anyRequest()
-                    .authenticated())
-            .formLogin(form -> form
-                    .loginPage("/home/showLoginPage")
-                    .loginProcessingUrl("/authenticateTheUser")
-                    .defaultSuccessUrl("/home/directory")
-                    .permitAll())
-            .logout(logout -> logout
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .permitAll()
-                    .logoutSuccessUrl("/home")
-                    .deleteCookies("JSESSIONID")
-                    .invalidateHttpSession(true))
-            .exceptionHandling(config -> config
-                    .accessDeniedPage("/home/access-denied"));
+                .formLogin(form -> form
+                        .loginPage("/home/showLoginPage")  // Specify the custom login page
+                        .loginProcessingUrl("/authenticateTheUser")  // URL for processing login
+                        .defaultSuccessUrl("/home/directory")  // Default success URL after login
+                        .permitAll())  // Allow public access to the login form
 
-            return http.build();
+                .logout(logout -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))  // URL for logging out
+                        .permitAll()
+                        .logoutSuccessUrl("/home")  // URL to redirect after successful logout
+                        .deleteCookies("JSESSIONID")  // Delete session cookies
+                        .invalidateHttpSession(true))  // Invalidate the HTTP session on logout
+
+                .exceptionHandling(config -> config
+                        .accessDeniedPage("/home/access-denied"));  // Custom page for access denied (authorization failure)
+
+        return http.build();
     }
 }

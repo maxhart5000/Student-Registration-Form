@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:th="http://www.thymeleaf.org">>
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="UTF-8">
@@ -11,7 +11,6 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
 
     <title>Student Directory</title>
-
 </head>
 <body style="background-color:#CBF1F5">
 <div class="container">
@@ -24,11 +23,11 @@
         <br>
     </p>
     <hr>
-    <!-- Add a button-->
+    <!-- Add a button -->
     <a class="btn btn-primary btn-sm mb-3" th:href="@{/home/showFormForAdd}">
         Add Student
     </a>
-    <table  class="table table-bordered table-striped">
+    <table class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>
             <th>First Name</th>
@@ -40,7 +39,6 @@
             <th>Action</th>
         </tr>
         </thead>
-
         <tbody>
         <tr th:each="tempStudent : ${students}">
             <td th:text="${tempStudent.firstName}"></td>

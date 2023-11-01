@@ -1,49 +1,54 @@
 package com.hartcode.registration.entity;
 
 import jakarta.persistence.*;
-
 import java.util.Collection;
 
+// This class represents the User entity and is mapped to the "user" table in the database.
 @Entity
-@Table(name="user")
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private long id;
 
-    @Column(name="username")
+    @Column(name = "username")
     private String userName;
 
-    @Column(name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="enabled")
+    @Column(name = "enabled")
     private boolean enabled;
 
-    @ManyToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    @JoinTable(name="users_roles",
-            joinColumns = @JoinColumn(name="user_id"),
-            inverseJoinColumns = @JoinColumn(name="role_id"))
+    // Define a many-to-many relationship with Role entities.
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
+    // Default no-argument constructor.
     public User() {
-
     }
 
+    // Constructor that initializes a user with username, password, and enabled status.
     public User(String userName, String password, boolean enabled) {
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
     }
 
+    // Constructor that initializes a user with username, password, enabled status, and roles.
     public User(String userName, String password, boolean enabled, Collection<Role> roles) {
         this.userName = userName;
         this.password = password;
         this.enabled = enabled;
         this.roles = roles;
     }
+
+    // Getter and setter methods for fields.
 
     public long getId() {
         return id;
