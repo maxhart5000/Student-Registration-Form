@@ -41,8 +41,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(config -> config
                         .requestMatchers("/").permitAll()  // Allow public access to the root path
                         .requestMatchers("/home").permitAll()  // Allow public access to the /home path
-                        .requestMatchers("/home/showRegistrationForm").permitAll()
-                        .requestMatchers("/home/processRegistrationForm").permitAll()
+                        .requestMatchers("/home/showRegistrationForm").permitAll() // Allow public access to the /home/showRegistrationForm
+                        .requestMatchers("/home/processRegistrationForm").permitAll() // Allow public access to the /home/processRegistrationForm
                         .requestMatchers("/home/directory").hasAnyRole("STUDENT", "TEACHER", "ADMIN") // Requires roles for /home/directory
                         .requestMatchers("/home/showFormForAdd").hasAnyRole("TEACHER", "ADMIN")  // Requires roles for /home/showFormForAdd
                         .requestMatchers("/home/showFormForUpdate").hasAnyRole("TEACHER", "ADMIN")  // Requires roles for /home/showFormForUpdate

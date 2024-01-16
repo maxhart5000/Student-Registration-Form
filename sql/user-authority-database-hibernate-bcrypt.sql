@@ -7,6 +7,7 @@ SET foreign_key_checks = 0;
 -- Drop existing 'user' and 'role' tables if they exist
 DROP TABLE IF EXISTS `user`;
 DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `users_roles`;
 
 -- Enable foreign key checks to ensure referential integrity
 SET foreign_key_checks = 1;
